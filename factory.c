@@ -29,12 +29,14 @@
 
 typedef struct sockaddr SA ;
 
+// Struct to hold the arguments to pass to each thread
 typedef struct {
     int facID;
     int capacity;
     int duration;
 } factoryArgs;
 
+// Struct to hold the results from each thread 
 typedef struct {
     int facID;
     int totalParts;
@@ -211,7 +213,7 @@ int main( int argc , char *argv[] )
         
         //Create N threads
         for (int i = 0; i < N; i++) {
-            // Set the argument structure for the thread routine
+            // Set the argument struct for the thread 
             factoryArgs *args = malloc(sizeof(factoryArgs));
             args->facID = i + 1;
             args->capacity  = (random() % 41) + 10;     // random number from 10–50
@@ -222,12 +224,12 @@ int main( int argc , char *argv[] )
                 args->facID, args->capacity, args->duration);
         }
 
-        factoryResults *threadRes;
         // Wait for all factories to finish
         for (int i = 0; i < N; i++) {
+            factoryResults *threadRes;
             pthread_join(tids[i], (void **)&threadRes);
 
-            // Store the result of the thread routine in the result array
+            // Store the result of the thread in the result array
             results[i] = *threadRes;
             free(threadRes);
         }
@@ -240,11 +242,14 @@ int main( int argc , char *argv[] )
         printf("\n****** FACTORY Server (by %s ) Summary Report ******\n", myName);
         printf("\tSub-Factory\tParts Made\tIterations\n");
 
+        // Go through the results array to find the total parts made and iterations of each thread
         int totalMade;
         for (int i = 0; i < N; i++) {
             printf("\t\t%-3d\t\t%-5d\t\t%-3d\n", results[i].facID, results[i].totalParts, results[i].iterations);
             totalMade += results[i].totalParts;
         }
+
+        // Print final results
         printf("======================================================\n");
         printf("Grand total parts made  =   %-5d vs order size %-5d\n", totalMade, orderSize);
         printf("Order-to-Completion time =  %ld milliSeconds\n", elapsedMS);
