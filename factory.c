@@ -135,7 +135,7 @@ int main( int argc , char *argv[] )
         exit( 1 ) ;
     }
 
-    printf("I will attempt to accept orders at port %hu with %d sub-factories\n", port, N);
+    printf("I will attempt to accept orders at port %hu with %d sub-factories\n\n", port, N);
     fflush(stdout);
 
     // Create the socket
@@ -252,7 +252,7 @@ int main( int argc , char *argv[] )
         // Print final results
         printf("======================================================\n");
         printf("Grand total parts made  =   %-5d vs order size %-5d\n", totalMade, orderSize);
-        printf("Order-to-Completion time =  %ld milliSeconds\n", elapsedMS);
+        printf("Order-to-Completion time =  %.1f milliSeconds\n", elapsedMS);
     }
     return 0 ;
 }

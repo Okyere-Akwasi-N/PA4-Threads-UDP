@@ -152,9 +152,9 @@ int main( int argc , char *argv[] )
     printf("=========================================================\n") ;
 
     printf("Grand total parts made = %5d vs order size of %5d\n", totalItems, orderSize);
-    printf("Order-to-Completion time = %ld milliSeconds\n", elapsedMS);
+    printf("Order-to-Completion time = %.1f milliSeconds\n", elapsedMS);
 
-    printf( "\n>>> PROCUREMENT Terminated\n");
+    printf( "\n>>> PROCUREMENT (by %s ) Terminated\n", myName ) ;
 
     return 0 ;
 }
